@@ -42,3 +42,7 @@ catkin_make
 
 # Source the workspace
 source ~/catkin_ws/devel/setup.bash
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
