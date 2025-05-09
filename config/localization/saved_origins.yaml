@@ -1,0 +1,35 @@
+# saved_origins.yaml
+
+# List of saved map origin information
+saved_origins:
+  # Location name: [plane rectangular coordinate system zone number, latitude, longitude, height, X, Y, Z, description, dataset path]
+  
+  # Research institute (default)
+  iam_field: 
+    zone: 9
+    latitude: 36.02233369
+    longitude: 140.09684352
+    height: 0.0
+    origin_x: 23750.0                   # Plane rectangular Y coordinate (m)
+    origin_y: 2510.0                    # Plane rectangular X coordinate (m)
+    origin_z: 0.0
+    description: "ibaraki_iam_default"
+    dataset_path: "datasets/iam_field"  # Dataset path added
+  
+  # Fukushima demonstration (not yet defined)
+  fukushima_field:
+    zone: 9
+    latitude: 36.234567
+    longitude: 140.234567
+    height: 35.2
+    origin_x: 23456.78
+    origin_y: 34567.89
+    origin_z: 0.0
+    description: "fukushima_frei"
+    dataset_path: "datasets/fukushima_field"  # Dataset path added
+
+# Default map origin
+default_origin: "iam_field"
+
+# Last used map origin
+last_used_origin: "iam_field"

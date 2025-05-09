@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Arguments -->
+  <arg name="csv_file" default="$(find open_autonomous_tractor)/datasets/nav_goals/recorded_poses.csv" />
+  <arg name="output_csv_file" default="$(find open_autonomous_tractor)/datasets/nav_goals/global_path.csv" />
+  <arg name="auto_save" default="false" />
+  <arg name="frame_id" default="map" />
+  <arg name="path_spacing" default="0.1" />
+  <arg name="theta_threshold" default="0.2" />
+  <arg name="publish_rate" default="1.0" />
+  
+  <!-- Global Path Generator Node -->
+  <node pkg="open_autonomous_tractor" type="global_path_generator.py" name="global_path_generator" output="screen">
+    <param name="csv_file" value="$(arg csv_file)" />
+    <param name="output_csv_file" value="$(arg output_csv_file)" />
+    <param name="auto_save" value="$(arg auto_save)" />
+    <param name="frame_id" value="$(arg frame_id)" />
+    <param name="path_spacing" value="$(arg path_spacing)" />
+    <param name="theta_threshold" value="$(arg theta_threshold)" />
+    <param name="publish_rate" value="$(arg publish_rate)" />
+  </node>
+</launch>

@@ -1,0 +1,103 @@
+# coordinate_params.yaml
+# Japanese Plane Rectangular Coordinate System Parameters
+plane_rectangular_coordinates:
+  # Default coordinate system zone (0-19)
+  default_zone: 9  # Zone corresponding to Ibaraki region (Japan)
+  
+  # Plane rectangular coordinate system origin points (latitude, longitude)
+  origin_points:
+    - [0.0, 0.0]                   # 0: Origin (not used)
+    - [33.0, 129.5]                # 1
+    - [33.0, 131.0]                # 2
+    - [36.0, 132.16666667]         # 3
+    - [33.0, 133.5]                # 4
+    - [36.0, 134.33333333]         # 5
+    - [36.0, 136.0]                # 6
+    - [36.0, 137.16666667]         # 7
+    - [36.0, 138.5]                # 8
+    - [36.0, 139.83333333]         # 9: Ibaraki (default)
+    - [40.0, 140.83333333]         # 10
+    - [44.0, 140.25]               # 11
+    - [44.0, 142.25]               # 12
+    - [44.0, 144.25]               # 13
+    - [26.0, 142.0]                # 14
+    - [26.0, 127.5]                # 15
+    - [26.0, 124.0]                # 16
+    - [26.0, 131.0]                # 17
+    - [20.0, 136.0]                # 18
+    - [26.0, 154.0]                # 19
+
+# Coordinate System Conversion Parameters
+conversion_params:
+  # Ellipsoid parameters (GRS80)
+  m0: 0.9999                       # Scale factor
+  a: 6378137.0                     # Semi-major axis
+  F: 298.257222101                 # Reciprocal of flattening
+
+# TF Broadcaster Settings
+tf_broadcaster:
+  # TF publishing rate (Hz)
+  publish_rate: 10.0
+  
+  # Frame ID settings
+  world_frame_id: "world"
+  map_frame_id: "map"
+  odom_frame_id: "odom"
+  base_frame_id: "base_footprint"
+  
+  # Current coordinate system zone number (default 9 - Ibaraki)
+  current_zone: 9
+
+# GNSS/IMU Settings
+gnss_imu:
+  # GNSS related topics
+  gnss_topic: "/gnss/fix"          # GNSS position information topic
+  
+  # IMU related topics
+  imu_topic: "/imu/data"           # IMU data topic
+  
+  # Antenna offset (relative to base_link, in meters)
+  antenna_offset_x: 0.0            # X-axis offset
+  antenna_offset_y: 0.0            # Y-axis offset 
+  antenna_offset_z: 0.0            # Z-axis offset
+
+# Map Origin Manager Settings
+map_origin_manager:
+  # Path to saved origin information file
+  saved_origins_file: "$(find open_autonomous_tractor)/config/localization/saved_origins.yaml"
+  
+  # Default map origin (coordinates in plane rectangular system, in meters)
+  default_origin_x: 0.0
+  default_origin_y: 0.0
+  default_origin_z: 0.0
+  
+  # Automatically add description when setting new origin (location+date)
+  auto_description: true
+  
+  # Origin information backup settings
+  backup_enabled: true
+  backup_path: "$(find open_autonomous_tractor)/config/localization/backups/"
+  
+  # Origin visualization settings
+  show_in_rviz: true
+  marker_color: [0.0, 1.0, 0.0, 1.0]  # RGBA format (green)
+  marker_scale: 1.0
+  
+  # Service names
+  set_origin_service: "set_map_origin"      # Service to set map origin
+  get_origin_service: "get_map_origin"      # Service to get map origin
+  save_origin_service: "save_map_origin"    # Service to save map origin
+  load_origin_service: "load_map_origin"    # Service to load map origin
+
+# Coordinate transformation error handling
+error_handling:
+  # Whether to use fallback values when coordinate transformation fails
+  use_fallback: true
+  
+  # GNSS signal loss detection timeout (seconds)
+  gnss_timeout: 2.0
+  
+  # Transformation result filtering settings
+  filter_outliers: true
+  max_position_jump: 5.0           # Maximum position change (meters)
+  max_orientation_jump: 0.5        # Maximum orientation change (radians)

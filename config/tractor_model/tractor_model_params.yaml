@@ -1,0 +1,51 @@
+# tractor_model_params.yaml
+# Parameters for tractor model
+tractor_model:
+  # Model information
+  model:
+    name: tractor
+    maker: Naro
+  # Body dimensions
+  body:
+    length: 3.544  # Length (meters)
+    width: 1.6     # Width (meters)
+    height: 2.562  # Height (meters)
+  
+  # Wheelbase and tread
+  wheelbase: 1.916   # Wheelbase (meters)
+  front_tread: 1.266 # Front tread (meters)
+  rear_tread: 1.213  # Rear tread (meters)
+  
+  # Wheel size
+  front_wheel:
+    radius: 0.455   # Front wheel radius (meters)
+    width: 0.206    # Front wheel width (meters)
+  rear_wheel:
+    radius: 0.655   # Rear wheel radius (meters)
+    width: 0.354    # Rear wheel width (meters)
+  
+  # Steering limits
+  steering:
+    max_angle: 0.785  # Maximum steering angle (radians, approximately 45 degrees)
+    
+  # Sensor positions (relative to base_link)
+  sensors:
+    lidar:
+      size: 0.1     # Lidar size (square)
+      mass: 0.6     # Lidar weight (kg)
+    livox:
+      x: 2.921
+      y: 0.0
+      z: 0.105     # Relative to base_link (0.76 - 0.655)
+      roll: 0.0
+      pitch: 0.0
+      yaw: 0.0
+  
+  # Implement information
+  implement:
+    mass: 150.0    # Implement weight (kg)
+    # Implement position (relative to base_link)
+    position:
+      x: -0.886    # Positioned approximately 1/4 of tractor length behind
+      y: 0.0
+      z: -0.3275   # Positioned half of rear_wheel_radius below

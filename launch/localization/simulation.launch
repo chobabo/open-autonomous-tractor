@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="pose_name" default="iam_road" />
+  <arg name="poses_file" default="$(find open_autonomous_tractor)/config/localization/simulation_poses.yaml" />
+  <arg name="origin_name" default="iam_field" />
+  <arg name="origins_file" default="$(find open_autonomous_tractor)/config/localization/saved_origins.yaml" />
+  <arg name="tractor_model" default="tractor_model" />
+  
+  <!-- Load coordinate system parameters -->
+  <rosparam command="load" file="$(find open_autonomous_tractor)/config/localization/coordinate_params.yaml" />
+  
+  <!-- Load tractor model parameters -->
+  <rosparam command="load" file="$(find open_autonomous_tractor)/config/tractor_model/tractor_model_params.yaml" />
+  
+  <!-- Simulation position loading node -->
+  <node pkg="open_autonomous_tractor" type="simul_load_pose.py" name="pose_loader" output="screen">
+    <param name="pose_name" value="$(arg pose_name)" />
+    <param name="poses_file" value="$(arg poses_file)" />
+  </node>
+  
+  <!-- TF broadcaster nodes -->
+  <node pkg="open_autonomous_tractor" type="simul_world_to_map_tf_broadcaster.py" name="world_to_map_tf" output="screen">
+    <param name="publish_rate" value="10.0" />
+    <param name="origin_name" value="$(arg origin_name)" />
+    <param name="origins_file" value="$(arg origins_file)" />
+  </node>
+  
+  <node pkg="open_autonomous_tractor" type="simul_map_to_odom_tf_broadcaster.py" name="map_to_odom_tf" output="screen">
+    <param name="publish_rate" value="10.0" />
+    <param name="origin_name" value="$(arg origin_name)" />
+    <param name="origins_file" value="$(arg origins_file)" />
+  </node>
+  
+  <!-- Odometry node (publishes odom → base_footprint transformation) -->
+  <node pkg="open_autonomous_tractor" type="simul_tractor_odometry.py" name="tractor_odometry" output="screen">
+    <param name="publish_rate" value="10.0" />
+    <param name="debug" value="False" />
+    <param name="tractor_model" value="$(arg tractor_model)" />
+  </node>
+</launch>

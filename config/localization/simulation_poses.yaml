@@ -1,0 +1,19 @@
+# simulation_poses.yaml
+
+simulation_poses:
+  # Ibaraki experiment field
+  iam_road:
+    map_zone: 9
+    pose:
+      x: 23914.80     # Plane rectangular Y coordinate (m)
+      y: 2691.76      # Plane rectangular X coordinate (m)
+      yaw_deg: 50.0   # Direction angle (degrees)
+    description: "ibaraki_iam_road"
+  
+  ibaraki_field2:
+    map_zone: 9
+    pose:
+      x: 24015.32
+      y: 2723.45
+      yaw_deg: 90.0
+    description: "not_yet"
