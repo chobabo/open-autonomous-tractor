@@ -1,4 +1,3 @@
-```markdown
 # Coordinate System and Position Configuration Files
 
 The `/config/localization` directory contains configuration files necessary for position estimation and coordinate system conversion for autonomous tractors. This README document explains the role and key parameters of each file.
