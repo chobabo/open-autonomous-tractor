@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Use fixed path for specific model -->
+  <arg name="model" default="$(find open_autonomous_tractor)/urdf/robots/robot_tractor_model.urdf.xacro"/>
+  <arg name="rviz_config" default="$(find open_autonomous_tractor)/config/tractor_model/tractor_model.rviz"/>
+  <arg name="gui" default="false"/>
+  
+  <!-- Load URDF file -->
+  <param name="robot_description" command="$(find xacro)/xacro $(arg model)" />
+  
+  <!-- Run robot state publisher -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+    <param name="publish_frequency" value="30.0" />
+  </node>
+  
+  <!-- Add slider UI for steering angle testing -->
+  <group if="$(arg gui)">
+    <node name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui">
+      <rosparam command="load" file="$(find open_autonomous_tractor)/config/tractor_model/joint_limits.yaml"/>
+    </node>
+  </group>
+  
+  <!-- Use regular joint_state_publisher when GUI is not available -->
+  <group unless="$(arg gui)">
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+      <rosparam param="source_list">["/steering_js"]</rosparam>
+      <rosparam command="load" file="$(find open_autonomous_tractor)/config/tractor_model/joint_limits.yaml"/>
+    </node>
+    
+    <!-- Steering joint updater (only when joint_state_publisher_gui is not used) -->
+    <node pkg="open_autonomous_tractor" type="simul_steering_joint_updater.py" name="steering_joint_updater" output="screen">
+      <param name="publish_rate" value="20.0" />
+      <param name="tractor_model" value="tractor_model" />
+    </node>
+  </group>
+
+  <!-- Run RViz -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rviz_config)" required="true" />
+</launch>

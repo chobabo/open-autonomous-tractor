@@ -1,5 +1,3 @@
-# saved_origins.yaml
-
 # List of saved map origin information
 saved_origins:
   # Location name: [plane rectangular coordinate system zone number, latitude, longitude, height, X, Y, Z, description, dataset path]

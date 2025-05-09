@@ -1,4 +1,3 @@
-# joint_limits.yaml
 # Joint limits for tractor model
 joint_limits:
   front_steer_joint:

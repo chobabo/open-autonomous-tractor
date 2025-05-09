@@ -1,0 +1,18 @@
+<launch>
+  <!-- Specify the current map to use (default is empty string, if empty the node will use default_origin) -->
+  <arg name="map_name" default=""/>
+  
+  <!-- Specify config file path -->
+  <arg name="config_file" default="$(find open_autonomous_tractor)/config/localization/saved_origins.yaml"/>
+  
+  <!-- Load config file to parameter server -->
+  <rosparam command="load" file="$(arg config_file)" ns="saved_origins"/>
+  
+  <!-- Set map name parameter -->
+  <param name="/requested_map" value="$(arg map_name)"/>
+  <param name="/config_file_path" value="$(arg config_file)"/>
+  
+  <!-- Run road boundary visualization node -->
+  <node name="road_boundary_visualizer" pkg="open_autonomous_tractor" type="road_boundary_visualizer.py" output="screen"/>
+
+</launch>

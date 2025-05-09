@@ -1,4 +1,3 @@
-# /launch/localization/readme.md
 # ROS Tractor Simulation Configuration
 
 This document describes the simulation configuration of the `open_autonomous_tractor` package. It focuses specifically on the tractor simulation environment setup through the `simulation.launch` file.
