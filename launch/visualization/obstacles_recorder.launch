@@ -1,0 +1,12 @@
+<launch>
+  <!-- Load obstacle configuration file -->
+  <rosparam command="load" file="$(find open_autonomous_tractor)/config/visualization/obstacle_params.yaml" />
+  
+  <!-- Launch obstacle manager node -->
+  <node pkg="open_autonomous_tractor" type="obstacle_manager.py" name="obstacle_manager" output="screen">
+    <param name="package_path" value="$(find open_autonomous_tractor)"/>
+  </node>
+
+  <!-- Launch RViz (optional) -->
+  <!-- <node pkg="rviz" type="rviz" name="rviz" args="-d $(find open_autonomous_tractor)/config/tractor_model1/tractor_model1.rviz"/> -->
+</launch>

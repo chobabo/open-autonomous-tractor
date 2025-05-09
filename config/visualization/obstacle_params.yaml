@@ -1,0 +1,30 @@
+# Basic obstacle settings
+obstacle_manager:
+  # Default obstacle dimensions
+  default_width: 1.2
+  default_length: 3.0
+  default_height: 1.5
+  
+  # Marker color settings
+  marker_color:
+    r: 1.0  # Red
+    g: 0.0
+    b: 0.0
+    a: 0.7  # 70% opacity
+  
+  # Other settings
+  update_rate: 1.0  # Marker update frequency (seconds)
+  frame_id: "map"   # Coordinate frame
+
+# Obstacle visualization settings
+obstacle_visualizer:
+  # Marker color settings
+  marker_color:
+    r: 1.0  # Red
+    g: 0.0
+    b: 0.0
+    a: 0.7  # 70% opacity
+  
+  # Other settings
+  update_rate: 1.0  # Marker update frequency (seconds)
+  frame_id: "map"   # Coordinate frame
