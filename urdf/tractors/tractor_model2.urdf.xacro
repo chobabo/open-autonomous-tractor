@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="tractor_model">
+  <!-- Load common macros and properties -->
+  <xacro:include filename="$(find open_autonomous_tractor)/urdf/common/common.xacro" />
+  
+  <!-- Tractor model dimensions and properties -->
+  <xacro:property name="wheelbase" value="1.916" /> <!-- Wheelbase: 1.916m -->
+  <xacro:property name="front_tread_width" value="1.266" /> <!-- Front tread width: 1.266m -->
+  <xacro:property name="rear_tread_width" value="1.213" /> <!-- Rear tread width: 1.213m -->
+  
+  <!-- Wheel sizes -->
+  <xacro:property name="front_wheel_radius" value="0.455" />
+  <xacro:property name="front_wheel_width" value="0.206" />
+  
+  <xacro:property name="rear_wheel_radius" value="0.655" />
+  <xacro:property name="rear_wheel_width" value="0.354" />
+  
+  <!-- Tractor body size -->
+  <xacro:property name="body_length" value="3.544" /> <!-- 3.544m -->
+  <xacro:property name="body_width" value="1.6" /> <!-- 1.6m -->
+  <xacro:property name="body_height" value="2.562" /> <!-- 2.562m -->
+  
+  <!-- base_footprint represents the center point of the robot's floor -->
+  <link name="base_footprint"/>
+
+  <!-- Connect base_footprint and base_link (rear tread center) -->
+  <joint name="base_joint" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+    <!-- Since the center of the rear tread is at height rear_wheel_radius from the ground -->
+    <origin xyz="0 0 ${rear_wheel_radius}" rpy="0 0 0"/>
+  </joint>
+
+  <!-- base_link represents the center of the rear tread -->
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <!-- box size="${body_length} ${body_width} ${body_height}" / -->
+        <mesh filename="package://open_autonomous_tractor/meshes/tractor_model/visual/body.stl" scale="1 1 1"/>
+      </geometry>
+      <material name="tractor_material">
+        <color rgba="${orange_color}" />
+      </material>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+    </visual>
+  </link>
+  
+  <!-- Wheel definitions (using macros from common.xacro) -->
+  <!-- Rear wheels: base_link is at the center of the rear tread, so x=0 -->
+  <xacro:wheel prefix="rear_left" radius="${rear_wheel_radius}" width="${rear_wheel_width}" mass="50" />
+  <joint name="rear_left_wheel_joint" type="continuous">
+    <parent link="base_link" />
+    <child link="rear_left_wheel_link" />
+    <!-- base_link is already at height rear_wheel_radius, so z=0 -->
+    <origin xyz="0 ${rear_tread_width/2} 0" rpy="0 0 0" />
+    <axis xyz="0 0 1" />
+  </joint>
+  
+  <xacro:wheel prefix="rear_right" radius="${rear_wheel_radius}" width="${rear_wheel_width}" mass="50" />
+  <joint name="rear_right_wheel_joint" type="continuous">
+    <parent link="base_link" />
+    <child link="rear_right_wheel_link" />
+    <!-- base_link is already at height rear_wheel_radius, so z=0 -->
+    <origin xyz="0 ${-rear_tread_width/2} 0" rpy="0 0 0" />
+    <axis xyz="0 0 1" />
+  </joint>
+  
+  <!-- Front wheels links and joints - connected directly to base_link -->
+  <xacro:wheel prefix="front_left" radius="${front_wheel_radius}" width="${front_wheel_width}" mass="30" />
+  <joint name="front_left_wheel_joint" type="revolute">
+    <parent link="base_link" />
+    <child link="front_left_wheel_link" />
+    <origin xyz="${wheelbase} ${front_tread_width/2} ${front_wheel_radius - rear_wheel_radius}" rpy="0 0 0" />
+    <axis xyz="0 0 1" />
+    <limit lower="${-PI/3}" upper="${PI/3}" effort="100" velocity="1.0" />
+  </joint>
+  
+  <xacro:wheel prefix="front_right" radius="${front_wheel_radius}" width="${front_wheel_width}" mass="30" />
+  <joint name="front_right_wheel_joint" type="revolute">
+    <parent link="base_link" />
+    <child link="front_right_wheel_link" />
+    <origin xyz="${wheelbase} ${-front_tread_width/2} ${front_wheel_radius - rear_wheel_radius}" rpy="0 0 0" />
+    <axis xyz="0 0 1" />
+    <limit lower="${-PI/3}" upper="${PI/3}" effort="100" velocity="1.0" />
+  </joint>
+
+  <!-- Implement link for the tractor model -->
+  <link name="implement_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://open_autonomous_tractor/meshes/tractor_model/visual/implement.stl" scale="1 1 1"/>
+      </geometry>
+      <material name="implement_material">
+        <color rgba="${sky_blue_color}" />
+      </material>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+    </visual>
+  </link>
+  
+  <!-- Implement connection position is roughly estimated. Adjust if needed -->
+  <joint name="implement_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="implement_link" />
+    <!-- Roughly set the position of the implement. Adjust as needed -->
+    <origin xyz="-1 0 0" rpy="0 0 0" />
+  </joint>
+</robot>

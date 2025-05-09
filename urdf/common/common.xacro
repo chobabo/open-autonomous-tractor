@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- Common properties -->
+  <xacro:property name="PI" value="3.14159265359" />
+  
+  <!-- Color definitions -->
+  <xacro:property name="red_color" value="0.8 0.0 0.0 0.6" /> <!-- Red -->
+  <xacro:property name="pink_color" value="1.0 0.4 0.7 0.6" /> <!-- Pink -->
+  <xacro:property name="orange_color" value="1.0 0.5 0.0 0.6" /> <!-- Orange -->
+  <xacro:property name="wheel_color" value="0.2 0.2 0.2 0.6" /> <!-- Black -->
+  <xacro:property name="sky_blue_color" value="0.0 0.7 1.0 0.6" /> <!-- Sky blue -->
+  
+  <!-- Physical properties -->
+  <xacro:property name="wheel_friction" value="1.0" />
+  <xacro:property name="wheel_damping" value="0.1" />
+  
+  <!-- Inertia macro - Box inertia -->
+  <xacro:macro name="box_inertia" params="mass x y z">
+    <inertial>
+      <mass value="${mass}" />
+      <inertia ixx="${mass*(y*y+z*z)/12}" ixy="0.0" ixz="0.0" 
+               iyy="${mass*(x*x+z*z)/12}" iyz="0.0" 
+               izz="${mass*(x*x+y*y)/12}" />
+    </inertial>
+  </xacro:macro>
+  
+  <!-- Inertia macro - Cylinder inertia -->
+  <xacro:macro name="cylinder_inertia" params="mass r h">
+    <inertial>
+      <mass value="${mass}" />
+      <inertia ixx="${mass*(3*r*r+h*h)/12}" ixy="0.0" ixz="0.0" 
+               iyy="${mass*(3*r*r+h*h)/12}" iyz="0.0" 
+               izz="${mass*r*r/2}" />
+    </inertial>
+  </xacro:macro>
+  
+  <!-- Wheel macro -->
+  <xacro:macro name="wheel" params="prefix radius width mass">
+    <link name="${prefix}_wheel_link">
+      <visual>
+        <!-- Using STL mesh instead of cylinder -->
+        <geometry>
+          <mesh filename="package://open_autonomous_tractor/meshes/tractor_model/visual/${prefix}.stl" scale="1 1 1"/>
+        </geometry>
+        <material name="wheel_material">
+          <color rgba="${wheel_color}" />
+        </material>
+        <!-- Adjust origin as needed depending on the mesh file origin -->
+        <origin xyz="0 0 0" rpy="${-PI/2} 0 0" />
+      </visual>
+    </link>
+  </xacro:macro>
+</robot>

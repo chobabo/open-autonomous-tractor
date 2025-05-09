@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="robot_tractor_model">
+  <!-- Load tractor model -->
+  <xacro:include filename="$(find open_autonomous_tractor)/urdf/tractors/tractor_model.urdf.xacro" />
+  
+  <!-- Sensor related properties -->
+  <xacro:property name="lidar_size" value="0.1" /> <!-- Lidar size (square) -->
+  <xacro:property name="lidar_mass" value="0.6" /> <!-- Lidar weight (kg) -->
+  
+  <!-- 3D LiDAR (Livox AVIA) -->
+  <link name="livox_frame">
+    <visual>
+      <geometry>
+        <!-- Approximate size of Livox AVIA (represented as a box) -->
+        <box size="${lidar_size} ${lidar_size} ${lidar_size}"/>
+      </geometry>
+      <material name="livox_material">
+        <color rgba="0.0 0.0 0.8 0.6" /> <!-- Blue -->
+      </material>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+    </visual>
+    <!-- Add inertia -->
+    <xacro:box_inertia mass="${lidar_mass}" x="${lidar_size}" y="${lidar_size}" z="${lidar_size}" />
+  </link>
+  
+  <!-- Livox LiDAR mounting position -->
+  <joint name="livox_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="livox_frame" />
+    <!-- Set position according to the provided information: z = 0.76 - 0.655 = 0.105m (relative to base_link) -->
+    <origin xyz="2.921 0.0  ${0.76 - 0.655}" rpy="0 0 0" />
+  </joint>
+</robot>
