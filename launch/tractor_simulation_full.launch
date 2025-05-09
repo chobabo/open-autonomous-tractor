@@ -1,0 +1,13 @@
+<launch>
+  <!-- 1. Launch simulation -->
+  <include file="$(find open_autonomous_tractor)/launch/localization/simulation.launch" />
+  
+  <!-- 2. Display tractor model in RViz -->
+  <include file="$(find open_autonomous_tractor)/launch/tractor_model/display_rviz_tractor_model.launch" />
+  
+  <!-- 3. Display field boundaries -->
+  <include file="$(find open_autonomous_tractor)/launch/visualization/display_field_boundaries.launch" />
+  
+  <!-- 4. Display road boundaries -->
+  <include file="$(find open_autonomous_tractor)/launch/visualization/display_road_boundaries.launch" />
+</launch>
