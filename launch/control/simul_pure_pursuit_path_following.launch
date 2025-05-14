@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Arguments for easy parameter modification -->
+    <arg name="tractor_model" default="tractor_model" />
+    <arg name="target_speed" default="1.0" />
+    <arg name="max_speed" default="2.0" />
+    <arg name="goal_tolerance" default="0.5" />
+    <arg name="control_frequency" default="10.0" />
+    
+    <!-- Pure Pursuit parameters -->
+    <arg name="pp_k" default="1.0" />
+    <arg name="pp_ks" default="0.5" />
+    
+    <!-- PID parameters for velocity control -->
+    <arg name="pid_kp" default="2.0" />
+    <arg name="pid_ki" default="0.01" />
+    <arg name="pid_kd" default="0.1" />
+    <arg name="max_acceleration" default="2.0" />
+    
+    <!-- Launch Pure Pursuit Path Following Controller -->
+    <node name="pure_pursuit_controller" 
+          pkg="open_autonomous_tractor" 
+          type="simul_pure_pursuit_path_following_controller.py"
+          output="screen"
+          respawn="false">
+        
+        <!-- Tractor Model -->
+        <param name="tractor_model" value="$(arg tractor_model)" />
+        
+        <!-- Pure Pursuit Parameters -->
+        <param name="pp_k" value="$(arg pp_k)" />
+        <param name="pp_ks" value="$(arg pp_ks)" />
+        
+        <!-- PID Parameters -->
+        <param name="pid_kp" value="$(arg pid_kp)" />
+        <param name="pid_ki" value="$(arg pid_ki)" />
+        <param name="pid_kd" value="$(arg pid_kd)" />
+        
+        <!-- Control Parameters -->
+        <param name="target_speed" value="$(arg target_speed)" />
+        <param name="max_speed" value="$(arg max_speed)" />
+        <param name="max_acceleration" value="$(arg max_acceleration)" />
+        <param name="goal_tolerance" value="$(arg goal_tolerance)" />
+        <param name="control_frequency" value="$(arg control_frequency)" />
+    </node>
+</launch>
