@@ -7,10 +7,10 @@ obstacle_manager:
   
   # Marker color settings
   marker_color:
-    r: 1.0  # Red
-    g: 0.0
+    r: 0.0  # Red
+    g: 1.0
     b: 0.0
-    a: 0.7  # 70% opacity
+    a: 0.6  # 70% opacity
   
   # Other settings
   update_rate: 1.0  # Marker update frequency (seconds)
@@ -20,10 +20,10 @@ obstacle_manager:
 obstacle_visualizer:
   # Marker color settings
   marker_color:
-    r: 1.0  # Red
-    g: 0.0
+    r: 0.0  # Red
+    g: 1.0
     b: 0.0
-    a: 0.7  # 70% opacity
+    a: 0.6  # 70% opacity
   
   # Other settings
   update_rate: 1.0  # Marker update frequency (seconds)
