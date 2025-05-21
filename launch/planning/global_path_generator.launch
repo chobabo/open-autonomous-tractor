@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <launch>
   <!-- Arguments -->
-  <arg name="csv_file" default="$(find open_autonomous_tractor)/datasets/nav_goals/recorded_poses.csv" />
-  <arg name="output_csv_file" default="$(find open_autonomous_tractor)/datasets/nav_goals/global_path.csv" />
+  <arg name="csv_file" default="$(find open_autonomous_tractor)/datasets/recorded_poses/recorded_poses.csv" />
+  <arg name="output_csv_file" default="$(find open_autonomous_tractor)/datasets/recorded_poses/global_path.csv" />
   <arg name="auto_save" default="false" />
   <arg name="frame_id" default="map" />
   <arg name="path_spacing" default="0.1" />
